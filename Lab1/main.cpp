@@ -22,7 +22,7 @@ int main() {
     std::cout << "\nGoldenRationAlgorithm:\n";
     std::cout << goldenRationAlgorithm.GetMin(func, leftBound, rightBound, pow(10, -eps)) << "\n";
 
-    double iterationsNumber;
+    int iterationsNumber;
     std::cout << "\nEnter number of iterations\n";
     std::cin >> iterationsNumber;
     FibonacciAlgorithm fibonacciAlgorithm(iterationsNumber);
