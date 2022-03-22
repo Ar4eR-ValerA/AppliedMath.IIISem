@@ -1,11 +1,13 @@
 #ifndef LAB1_DICHOTOMYALGORITHM_H
 #define LAB1_DICHOTOMYALGORITHM_H
-#include "..\Abstractions\BaseAlgorithm.h"
-#include <stdexcept>
+#include "..\Abstractions\IAlgorithm.h"
+#include <vector>
 
-class DichotomyAlgorithm : public BaseAlgorithm {
+class DichotomyAlgorithm : public IAlgorithm {
 public:
-    double GetMin(const BaseFunc& func, double leftBound, double rightBound, double eps) override {
+    double GetMin(const IFunc& func, double leftBound, double rightBound, double eps) override {
+        _lengths.push_back(std::abs(rightBound - leftBound));
+
         double middle = (leftBound + rightBound) / 2;
 
         if (rightBound - leftBound < eps) {

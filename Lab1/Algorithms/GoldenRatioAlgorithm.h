@@ -1,11 +1,13 @@
 #ifndef LAB1_GOLDENRATIOALGORITHM_H
 #define LAB1_GOLDENRATIOALGORITHM_H
-#include "..\Abstractions\BaseAlgorithm.h"
+#include "..\Abstractions\IAlgorithm.h"
 #include <cmath>
 
-class GoldenRationAlgorithm : public BaseAlgorithm {
+class GoldenRationAlgorithm : public IAlgorithm {
 public:
-    double GetMin(const BaseFunc& func, double leftBound, double rightBound, double eps) override {
+    double GetMin(const IFunc& func, double leftBound, double rightBound, double eps) override {
+        _lengths.push_back(std::fabs(rightBound - leftBound));
+
         if (rightBound - leftBound < eps) {
             return (rightBound + leftBound) / 2;
         }
