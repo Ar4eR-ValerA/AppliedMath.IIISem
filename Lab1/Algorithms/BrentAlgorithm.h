@@ -15,7 +15,7 @@ public:
         double prevStepLength = rightBound - leftBound;
         double currentStepLength = rightBound - leftBound;
 
-        while (fabs(rightBound - leftBound) >= 2 * eps) {
+        while (fabs(rightBound - leftBound) >= 4 * eps) {
             double innerPoint;
             double prevPrevStepLength = prevStepLength;
             prevStepLength = currentStepLength;

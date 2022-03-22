@@ -12,8 +12,6 @@ int main() {
 
     std::cout << "Enter left bound, right bound, precision (number of digits after decimal point)\n";
     std::cin >> leftBound >> rightBound >> eps;
-
-    std::cin >> leftBound >> rightBound;
     std::cout.precision(fabs(eps));
 
     DichotomyAlgorithm dichotomyAlgorithm;
