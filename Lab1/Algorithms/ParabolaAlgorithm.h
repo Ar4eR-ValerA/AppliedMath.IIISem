@@ -1,5 +1,5 @@
-#ifndef LAB1_PARABOLAALGORITHM_HPP
-#define LAB1_PARABOLAALGORITHM_HPP
+#ifndef LAB1_PARABOLAALGORITHM_H
+#define LAB1_PARABOLAALGORITHM_H
 #include "..\Abstractions\BaseAlgorithm.h"
 #include <cmath>
 
@@ -60,4 +60,4 @@ private:
     }
 };
 
-#endif //LAB1_PARABOLAALGORITHM_HPP
+#endif //LAB1_PARABOLAALGORITHM_H

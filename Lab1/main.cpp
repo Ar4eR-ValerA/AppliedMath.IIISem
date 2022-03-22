@@ -3,7 +3,7 @@
 #include "Algorithms\DichotomyAlgorithm.h"
 #include "Algorithms\GoldenRatioAlgorithm.h"
 #include "Algorithms\FibonacciAlgorithm.h"
-#include "Algorithms\ParabolaAlgorithm.hpp"
+#include "Algorithms\ParabolaAlgorithm.h"
 
 int main() {
     Sinx_x3 func;
