@@ -5,10 +5,8 @@
 
 class GoldenRationAlgorithm : public BaseAlgorithm {
 public:
-    double GoldenRatio = (sqrt(5) + 1) / 2;
-
     double GetMin(const BaseFunc& func, double leftBound, double rightBound, double eps) override {
-        if (fabs(rightBound - leftBound) < eps) {
+        if (rightBound - leftBound < eps) {
             return (rightBound + leftBound) / 2;
         }
 
@@ -25,6 +23,9 @@ public:
             return GetMin(func, leftPoint, rightBound, eps);
         }
     }
+
+private:
+    double GoldenRatio = (sqrt(5) + 1) / 2;
 };
 
 #endif //LAB1_GOLDENRATIOALGORITHM_H

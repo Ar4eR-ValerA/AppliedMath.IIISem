@@ -29,11 +29,11 @@ public:
 
 private:
     double GetMin(const BaseFunc& func, double leftPoint, double innerPoint, double rightPoint, double eps) {
-        if (fabs(innerPoint - leftPoint) < eps) {
+        if (innerPoint - leftPoint < eps) {
             return innerPoint;
         }
 
-        if (fabs(innerPoint - rightPoint) < eps) {
+        if (rightPoint - innerPoint < eps) {
             return innerPoint;
         }
 

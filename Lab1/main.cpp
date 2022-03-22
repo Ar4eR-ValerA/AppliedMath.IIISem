@@ -4,13 +4,14 @@
 #include "Algorithms\GoldenRatioAlgorithm.h"
 #include "Algorithms\FibonacciAlgorithm.h"
 #include "Algorithms\ParabolaAlgorithm.h"
+#include "Algorithms\BrentAlgorithm.h"
 
 int main() {
     Sinx_x3 func;
-    double leftBound, rightBound, eps = 12;
+    double leftBound, rightBound, eps;
 
-    //std::cout << "Enter left bound, right bound, precision (number of digits after decimal point)\n";
-    //std::cin >> leftBound >> rightBound >> eps;
+    std::cout << "Enter left bound, right bound, precision (number of digits after decimal point)\n";
+    std::cin >> leftBound >> rightBound >> eps;
 
     std::cin >> leftBound >> rightBound;
     std::cout.precision(fabs(eps));
@@ -23,16 +24,17 @@ int main() {
     std::cout << "\nGoldenRationAlgorithm:\n";
     std::cout << goldenRationAlgorithm.GetMin(func, leftBound, rightBound, pow(10, -eps)) << "\n";
 
-    int iterationsNumber;
-    std::cout << "\nEnter number of iterations\n";
-    std::cin >> iterationsNumber;
-    FibonacciAlgorithm fibonacciAlgorithm(iterationsNumber);
+    FibonacciAlgorithm fibonacciAlgorithm;
     std::cout << "\nFibonacciAlgorithm:\n";
     std::cout << fibonacciAlgorithm.GetMin(func, leftBound, rightBound, pow(10, -eps)) << "\n";
 
     ParabolaAlgorithm parabolaAlgorithm;
     std::cout << "\nParabolaAlgorithm:\n";
     std::cout << parabolaAlgorithm.GetMin(func, leftBound, rightBound, pow(10, -eps)) << "\n";
+
+    BrentAlgorithm brentAlgorithm;
+    std::cout << "\nBrentAlgorithm:\n";
+    std::cout << brentAlgorithm.GetMin(func, leftBound, rightBound, pow(10, -eps)) << "\n";
 
     return 0;
 }

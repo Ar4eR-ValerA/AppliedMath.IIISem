@@ -5,25 +5,16 @@
 
 class FibonacciAlgorithm : public BaseAlgorithm {
 public:
-    long long IterationsNumber;
-    long long FibonacciNumber_n;
-    long long FibonacciNumber_n_minus_1;
-    long long FibonacciNumber_n_minus_2;
-
-    explicit FibonacciAlgorithm(int iterationsNumber) {
-        IterationsNumber = iterationsNumber;
-
-        int n = iterationsNumber;
-        FibonacciNumber_n_minus_1 = (long long) round(
-                -1 / sqrt(5) * pow((1 - sqrt(5)) / 2, n - 1)
-                +1 / sqrt(5) * pow((1 + sqrt(5)) / 2, n - 1));
-        FibonacciNumber_n_minus_2 = (int) round(
-                -1 / sqrt(5) * pow((1 - sqrt(5)) / 2, n - 2)
-                +1 / sqrt(5) * pow((1 + sqrt(5)) / 2, n - 2));
-        FibonacciNumber_n = FibonacciNumber_n_minus_1 + FibonacciNumber_n_minus_2;
-    }
-
     double GetMin(const BaseFunc& func, double leftBound, double rightBound, double eps) override {
+        int IterationsNumber = 1;
+        long long FibonacciNumber_n = 1;
+        while (FibonacciNumber_n <= (rightBound - leftBound) / eps) {
+            IterationsNumber++;
+            FibonacciNumber_n = GetFibonacciNumber(IterationsNumber);
+        }
+        long long FibonacciNumber_n_minus_1 = GetFibonacciNumber(IterationsNumber - 1);
+        long long FibonacciNumber_n_minus_2 = FibonacciNumber_n - FibonacciNumber_n_minus_1;
+
         double leftPoint = leftBound + (rightBound - leftBound) * FibonacciNumber_n_minus_2 / FibonacciNumber_n;
         double rightPoint = leftBound + (rightBound - leftBound) * FibonacciNumber_n_minus_1 / FibonacciNumber_n;
 
@@ -56,6 +47,13 @@ public:
         }
 
         return (rightBound + leftBound) / 2;
+    }
+
+private:
+    long long GetFibonacciNumber(int n) {
+        return round(
+                -1 / sqrt(5) * pow((1 - sqrt(5)) / 2, n)
+                +1 / sqrt(5) * pow((1 + sqrt(5)) / 2, n));
     }
 };
 

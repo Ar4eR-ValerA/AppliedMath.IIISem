@@ -2,14 +2,13 @@
 #define LAB1_DICHOTOMYALGORITHM_H
 #include "..\Abstractions\BaseAlgorithm.h"
 #include <stdexcept>
-#include <cmath>
 
 class DichotomyAlgorithm : public BaseAlgorithm {
 public:
     double GetMin(const BaseFunc& func, double leftBound, double rightBound, double eps) override {
         double middle = (leftBound + rightBound) / 2;
 
-        if (fabs(rightBound - leftBound) < eps) {
+        if (rightBound - leftBound < eps) {
             return middle;
         }
 
