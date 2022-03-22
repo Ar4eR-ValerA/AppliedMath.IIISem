@@ -3,10 +3,11 @@
 #include "Algorithms\DichotomyAlgorithm.h"
 #include "Algorithms\GoldenRatioAlgorithm.h"
 #include "Algorithms\FibonacciAlgorithm.h"
+#include "Algorithms\ParabolaAlgorithm.hpp"
 
 int main() {
     Sinx_x3 func;
-    double leftBound, rightBound, eps = 8;
+    double leftBound, rightBound, eps = 12;
 
     //std::cout << "Enter left bound, right bound, precision (number of digits after decimal point)\n";
     //std::cin >> leftBound >> rightBound >> eps;
@@ -28,8 +29,10 @@ int main() {
     FibonacciAlgorithm fibonacciAlgorithm(iterationsNumber);
     std::cout << "\nFibonacciAlgorithm:\n";
     std::cout << fibonacciAlgorithm.GetMin(func, leftBound, rightBound, pow(10, -eps)) << "\n";
-    // Функция говна, если что
-    // Применение этой штуки крайне сомнительно
+
+    ParabolaAlgorithm parabolaAlgorithm;
+    std::cout << "\nParabolaAlgorithm:\n";
+    std::cout << parabolaAlgorithm.GetMin(func, leftBound, rightBound, pow(10, -eps)) << "\n";
 
     return 0;
 }

@@ -5,16 +5,16 @@
 
 class FibonacciAlgorithm : public BaseAlgorithm {
 public:
-    int IterationsNumber;
-    int FibonacciNumber_n;
-    int FibonacciNumber_n_minus_1;
-    int FibonacciNumber_n_minus_2;
+    long long IterationsNumber;
+    long long FibonacciNumber_n;
+    long long FibonacciNumber_n_minus_1;
+    long long FibonacciNumber_n_minus_2;
 
     explicit FibonacciAlgorithm(int iterationsNumber) {
         IterationsNumber = iterationsNumber;
 
         int n = iterationsNumber;
-        FibonacciNumber_n_minus_1 = (int) round(
+        FibonacciNumber_n_minus_1 = (long long) round(
                 -1 / sqrt(5) * pow((1 - sqrt(5)) / 2, n - 1)
                 +1 / sqrt(5) * pow((1 + sqrt(5)) / 2, n - 1));
         FibonacciNumber_n_minus_2 = (int) round(
