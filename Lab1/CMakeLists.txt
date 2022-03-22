@@ -3,4 +3,4 @@ project(Lab1)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Lab1 main.cpp "Algorithms/ParabolaAlgorithm.hpp")
+add_executable(Lab1 main.cpp)
