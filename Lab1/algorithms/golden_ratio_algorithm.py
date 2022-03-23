@@ -4,6 +4,7 @@ from math import sqrt
 def find_min(function, left_bound, right_bound, eps):
     golden_ratio = (sqrt(5) + 1) / 2
     segments = []
+    calls = 0
 
     left_point = right_bound - (right_bound - left_bound) / golden_ratio
     right_point = left_bound + (right_bound - left_bound) / golden_ratio
@@ -22,6 +23,7 @@ def find_min(function, left_bound, right_bound, eps):
             left_point = right_bound - (right_bound - left_bound) / golden_ratio
 
             left_result = function(left_point)
+            calls += 1
 
         else:
             left_bound = left_point
@@ -34,4 +36,4 @@ def find_min(function, left_bound, right_bound, eps):
 
 
     segments.append((left_bound, right_bound))
-    return (right_bound + left_bound) / 2, segments
+    return (right_bound + left_bound) / 2, calls, segments

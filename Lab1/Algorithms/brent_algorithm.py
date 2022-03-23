@@ -27,6 +27,7 @@ def find_min(function, left_bound, right_bound, eps):
     prev_len = current_len = right_bound - left_bound
     eps /= 10
     segments = []
+    calls = 1
 
     while fabs(right_bound - left_bound) >= 10 * eps:
         segments.append([min(left_bound, right_bound), max(left_bound, right_bound)])
@@ -37,6 +38,7 @@ def find_min(function, left_bound, right_bound, eps):
 
         if fabs(left_point - middle) > eps or fabs(middle - right_point) > eps:
             parabola_min = find_parabola_min(function, left_point, middle, right_point)
+            calls += 3
             parabola_fl = True
 
         if (parabola_fl and parabola_min is not None and fabs(parabola_min - left_point) < eps and fabs(right_point - parabola_min) < eps
@@ -57,6 +59,7 @@ def find_min(function, left_bound, right_bound, eps):
                 inner_point = middle + eps if inner_point - middle > 0 else middle - eps
 
             inner_result = function(inner_point)
+            calls += 1
 
             if inner_result <= middle_result:
                 if inner_point >= middle:
@@ -81,4 +84,4 @@ def find_min(function, left_bound, right_bound, eps):
                     right_point, right_result = inner_point, middle_result
 
     segments.append([min(left_bound, right_bound), max(left_bound, right_bound)])
-    return (segments[-1][0] + segments[-1][1]) / 2, segments
+    return (segments[-1][0] + segments[-1][1]) / 2, calls, segments

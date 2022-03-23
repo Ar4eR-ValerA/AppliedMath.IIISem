@@ -7,6 +7,7 @@ def get_fibonacci_number(n):
 
 def find_min(function, left_bound, right_bound, eps):
     segments = []
+    calls = 0
 
     iteration_number = 1
     fibonacci_number_n = 1
@@ -22,13 +23,14 @@ def find_min(function, left_bound, right_bound, eps):
 
     left_result = function(left_point)
     right_result = function(right_point)
+    calls += 2
 
     for i in range(iteration_number, 1, -1):
         segments.append((min(left_bound, right_bound), max(left_bound, right_bound)))
 
         if abs(right_bound - left_bound) < eps:
             segments.append((max(left_bound, right_bound), min(left_bound, right_bound)))
-            return (segments[-1][0] + segments[-1][1]) / 2, segments
+            return (segments[-1][0] + segments[-1][1]) / 2, calls, segments
 
         if left_result < right_result:
             right_bound = right_point
@@ -38,6 +40,7 @@ def find_min(function, left_bound, right_bound, eps):
 
             left_point = left_bound + (right_bound - right_point)
             left_result = function(left_point)
+            calls += 1
         else:
             left_bound = left_point
 
@@ -46,6 +49,7 @@ def find_min(function, left_bound, right_bound, eps):
 
             right_point = right_bound + (left_bound - left_point)
             right_result = function(right_point)
+            calls += 1
 
     segments.append((max(left_bound, right_bound), min(left_bound, right_bound)))
-    return (segments[-1][0] + segments[-1][1]) / 2, segments
+    return (segments[-1][0] + segments[-1][1]) / 2, calls, segments

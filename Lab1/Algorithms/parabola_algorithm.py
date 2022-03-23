@@ -1,5 +1,6 @@
 def find_min(function, left_bound, right_bound, eps):
     segments = []
+    calls = 0
     middle = (right_bound + left_bound) / 2
 
     while abs(right_bound - left_bound) > eps:
@@ -8,6 +9,7 @@ def find_min(function, left_bound, right_bound, eps):
         left_result = function(left_bound)
         middle_result = function(middle)
         right_result = function(right_bound)
+        calls += 3
 
         if left_result < middle_result:
             right_bound = middle
@@ -24,6 +26,7 @@ def find_min(function, left_bound, right_bound, eps):
         left_result = function(left_point)
         inner_result = function(inner_point)
         right_result = function(right_point)
+        calls += 3
 
         a1 = (inner_result - left_result) / (inner_point - left_point)
         a2 = 1 / (right_point - inner_point) * ((right_result - left_result) / (right_point - left_point) -
@@ -42,6 +45,6 @@ def find_min(function, left_bound, right_bound, eps):
             segments.append((left_point, inner_point))
 
         else:
-            return inner_point, segments
+            return inner_point, calls, segments
 
-    return inner_point, segments
+    return inner_point, calls, segments
