@@ -5,19 +5,33 @@ def find_min(function, left_bound, right_bound, eps):
     golden_ratio = (sqrt(5) + 1) / 2
     segments = []
 
+    left_point = right_bound - (right_bound - left_bound) / golden_ratio
+    right_point = left_bound + (right_bound - left_bound) / golden_ratio
+
+    left_result = function(left_point)
+    right_result = function(right_point)
+
     while right_bound - left_bound > eps:
         segments.append((left_bound, right_bound))
 
-        left_point = right_bound - (right_bound - left_bound) / golden_ratio
-        right_point = left_bound + (right_bound - left_bound) / golden_ratio
-
-        left_result = function(left_point)
-        right_result = function(right_point)
-
         if left_result < right_result:
             right_bound = right_point
+            right_result = left_result
+
+            right_point = left_point
+            left_point = right_bound - (right_bound - left_bound) / golden_ratio
+
+            left_result = function(left_point)
+
         else:
             left_bound = left_point
+            left_result = right_result
+
+            left_point = right_point
+            right_point = left_bound + (right_bound - left_bound) / golden_ratio
+
+            right_result = function(right_point)
+
 
     segments.append((left_bound, right_bound))
     return (right_bound + left_bound) / 2, segments
