@@ -1,13 +1,11 @@
 #ifndef LAB1_BRENTALGORITHM_H
 #define LAB1_BRENTALGORITHM_H
-#include "..\Abstractions\IAlgorithm.h"
+#include "..\Abstractions\BaseAlgorithm.h"
 #include <cmath>
 
-class BrentAlgorithm : public IAlgorithm {
+class BrentAlgorithm : public BaseAlgorithm {
 public:
     double GetMin(const IFunc& func, double leftBound, double rightBound, double eps) override {
-        _lengths.push_back(fabs(rightBound - leftBound));
-
         double middle = (leftBound + rightBound) / 2;
         double leftPoint = middle, rightPoint = middle;
 
@@ -19,6 +17,8 @@ public:
 
         eps /= 10;
         while (fabs(rightBound - leftBound) >= 10 * eps) {
+            _segments.push_back({std::min(leftBound, rightBound), std::max(leftBound, rightBound)});
+
             double innerPoint;
             double prevPrevStepLength = prevStepLength;
             prevStepLength = currentStepLength;

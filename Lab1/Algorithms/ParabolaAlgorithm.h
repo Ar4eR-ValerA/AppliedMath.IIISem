@@ -1,12 +1,12 @@
 #ifndef LAB1_PARABOLAALGORITHM_H
 #define LAB1_PARABOLAALGORITHM_H
-#include "..\Abstractions\IAlgorithm.h"
+#include "..\Abstractions\BaseAlgorithm.h"
 #include <cmath>
 
-class ParabolaAlgorithm : IAlgorithm {
+class ParabolaAlgorithm : BaseAlgorithm {
 public:
     double GetMin(const IFunc& func, double leftBound, double rightBound, double eps) override {
-        _lengths.push_back(std::fabs(rightBound - leftBound));
+        _segments.push_back({std::min(leftBound, rightBound), std::max(leftBound, rightBound)});
 
         double middle = (rightBound + leftBound) / 2;
 
@@ -31,7 +31,7 @@ public:
 
 private:
     double GetMin(const IFunc& func, double leftPoint, double innerPoint, double rightPoint, double eps) {
-        _lengths.push_back(fabs(rightPoint - leftPoint));
+        _segments.push_back({std::min(leftPoint, rightPoint), std::max(leftPoint, rightPoint)});
 
         if (innerPoint - leftPoint < eps) {
             return innerPoint;

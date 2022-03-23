@@ -4,14 +4,20 @@
 
 #include "IFunc.h"
 
-class IAlgorithm {
+class BaseAlgorithm {
+public:
     virtual double GetMin(const IFunc& func, double leftBound, double rightBound, double eps) = 0;
-    std::vector<double> GetVec() {
-        return _lengths;
+
+    std::vector<std::pair<double, double>> GetSegments() {
+        return _segments;
+    }
+
+    void ResetSegments() {
+        _segments.clear();
     }
 
 protected:
-    std::vector<double> _lengths;
+    std::vector<std::pair<double, double>> _segments;
 };
 
 #endif //BASEALGORITHM_H

@@ -1,12 +1,12 @@
 #ifndef LAB1_FIBONACCIALGORITHM_H
 #define LAB1_FIBONACCIALGORITHM_H
-#include "..\Abstractions\IAlgorithm.h"
+#include "..\Abstractions\BaseAlgorithm.h"
 #include <cmath>
 
-class FibonacciAlgorithm : public IAlgorithm {
+class FibonacciAlgorithm : public BaseAlgorithm {
 public:
     double GetMin(const IFunc& func, double leftBound, double rightBound, double eps) override {
-        _lengths.push_back(std::fabs(rightBound - leftBound));
+        _segments.push_back({std::min(leftBound, rightBound), std::max(leftBound, rightBound)});
 
         int IterationsNumber = 1;
         long long FibonacciNumber_n = 1;
