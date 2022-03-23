@@ -14,5 +14,5 @@ def find_min(function, left_bound, right_bound, eps):
         else:
             left_bound = middle
 
-    segments.append((right_bound + left_bound) / 2)
-    return segments[-1], segments
+    segments.append((left_bound, right_bound))
+    return (left_bound + right_bound) / 2, segments

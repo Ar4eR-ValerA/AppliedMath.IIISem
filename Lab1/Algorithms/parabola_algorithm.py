@@ -41,8 +41,8 @@ def find_min(function, left_bound, right_bound, eps):
             inner_point = min_point
 
         else:
-            segments.append(inner_point)
-            return segments
+            segments.append((left_point, right_point))
+            return inner_point, segments
 
-    segments.append(inner_point)
-    return segments[-1], segments
+    segments.append((left_point, right_point))
+    return inner_point, segments

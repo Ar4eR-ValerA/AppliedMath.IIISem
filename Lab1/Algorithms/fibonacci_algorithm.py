@@ -27,8 +27,8 @@ def find_min(function, left_bound, right_bound, eps):
         segments.append((min(left_bound, right_bound), max(left_bound, right_bound)))
 
         if abs(right_bound - left_bound) < eps:
-            segments.append((max(left_bound, right_bound) + min(left_bound, right_bound)) / 2)
-            return segments[-1], segments
+            segments.append((max(left_bound, right_bound), min(left_bound, right_bound)))
+            return (segments[-1][0] + segments[-1][1]) / 2, segments
 
         if left_result < right_result:
             right_bound = right_point
@@ -47,5 +47,5 @@ def find_min(function, left_bound, right_bound, eps):
             right_point = right_bound + (left_bound - left_point)
             right_result = function(right_point)
 
-    segments.append((max(left_bound, right_bound) + min(left_bound, right_bound)) / 2)
-    return segments[-1], segments
+    segments.append((max(left_bound, right_bound), min(left_bound, right_bound)))
+    return (segments[-1][0] + segments[-1][1]) / 2, segments
