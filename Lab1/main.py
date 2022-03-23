@@ -1,7 +1,10 @@
 import math
-from algorithms import dichotomy_algorithm, golden_ratio_algorithm, \
+from Algorithms import dichotomy_algorithm, golden_ratio_algorithm, \
     fibonacci_algorithm, parabola_algorithm, brent_algorithm
 
+
+#def function(x):
+#    return math.sin(x) * math.pow(x, 3)
 
 def function(x):
     return math.sin(x) * math.pow(x, 3)
