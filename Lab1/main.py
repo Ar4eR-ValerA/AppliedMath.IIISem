@@ -91,6 +91,51 @@ def FibonacciAlgorithm(leftBound, rightBound, eps):
     segments.append((max(leftBound, rightBound) + min(leftBound, rightBound)) / 2)
     return segments
 
+def ParabolaAlgorithm(leftBound, rightBound, eps):
+    segments = []
+    middle = (rightBound + leftBound) / 2
+
+    while abs(rightBound - leftBound) > eps:
+        segments.append((leftBound, rightBound))
+
+        leftResult = Function(leftBound)
+        middleResult = Function(middle)
+        rightResult = Function(rightBound)
+
+        if leftResult < middleResult:
+            rightBound = middle
+        elif rightResult < middleResult:
+            leftBound = middle
+        else:
+            break
+
+    leftPoint = leftBound
+    innerPoint = middle
+    rightPoint = rightBound
+    while innerPoint - leftPoint > eps and rightPoint - innerPoint > eps:
+        segments.append((leftPoint, rightPoint))
+
+        leftResult = Function(leftPoint)
+        innerResult = Function(innerPoint)
+        rightResult = Function(rightPoint)
+
+        a1 = (innerResult - leftResult) / (innerPoint - leftPoint)
+        a2 = 1 / (rightPoint - innerPoint) * ((rightResult - leftResult) / (rightPoint - leftPoint) - (innerResult - leftResult) / (innerPoint - leftPoint))
+
+        minPoint = 1.0 / 2.0 * (leftPoint + innerPoint - a1 / a2)
+
+        if leftPoint < minPoint and minPoint < innerPoint:
+            rightPoint = innerPoint
+            innerPoint = minPoint
+        elif innerPoint < minPoint and minPoint < rightPoint:
+            leftPoint = innerPoint
+            innerPoint = minPoint
+        else:
+            segments.append(innerPoint)
+            return segments
+
+    segments.append(innerPoint)
+    return segments
 
 
 print("DichotomyAlgorithm:")
@@ -105,5 +150,10 @@ print(segments, "\n")
 
 print("FibonacciAlgorithm:")
 segments = FibonacciAlgorithm(3, 6, 1e-8)
+print(len(segments), segments[len(segments) - 1])
+print(segments, "\n")
+
+print("ParabolaAlgorithm:")
+segments = ParabolaAlgorithm(3, 6, 1e-8)
 print(len(segments), segments[len(segments) - 1])
 print(segments, "\n")
