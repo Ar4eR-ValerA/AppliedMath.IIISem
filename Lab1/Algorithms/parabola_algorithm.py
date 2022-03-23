@@ -20,7 +20,6 @@ def find_min(function, left_bound, right_bound, eps):
     inner_point = middle
     right_point = right_bound
     while inner_point - left_point > eps and right_point - inner_point > eps:
-        segments.append((left_point, right_point))
 
         left_result = function(left_point)
         inner_result = function(inner_point)
@@ -35,14 +34,14 @@ def find_min(function, left_bound, right_bound, eps):
         if left_point < min_point < inner_point:
             right_point = inner_point
             inner_point = min_point
+            segments.append((inner_point, right_point))
 
         elif inner_point < min_point < right_point:
             left_point = inner_point
             inner_point = min_point
+            segments.append((left_point, inner_point))
 
         else:
-            segments.append((left_point, right_point))
             return inner_point, segments
 
-    segments.append((left_point, right_point))
     return inner_point, segments
