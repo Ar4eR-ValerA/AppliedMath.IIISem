@@ -15,6 +15,9 @@ def find_min(function, left_bound, right_bound, eps):
         a1 = (middle_res - left_res) / (m - l)
         a2 = 1 / (r - m) * ((right_res - left_res) / (r - l) - (middle_res - left_res) / (m - l))
 
+        if a2 == 0:
+            return None
+
         return 1.0 / 2.0 * (l + m - a1 / a2)
 
     middle = (left_bound + right_bound) / 2.0
@@ -36,7 +39,7 @@ def find_min(function, left_bound, right_bound, eps):
             parabola_min = find_parabola_min(function, left_point, middle, right_point)
             parabola_fl = True
 
-        if (parabola_fl and parabola_min is not None and left_point + eps <= parabola_min <= right_point - eps
+        if (parabola_fl and parabola_min is not None and fabs(parabola_min - left_point) < eps and fabs(right_point - parabola_min) < eps
                 and fabs(parabola_min - middle) < prev_prev_len / 2):
             inner_point = parabola_min
             current_len = fabs(inner_point - middle)
