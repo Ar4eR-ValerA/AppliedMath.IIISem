@@ -6,6 +6,8 @@
 class BrentAlgorithm : public IAlgorithm {
 public:
     double GetMin(const IFunc& func, double leftBound, double rightBound, double eps) override {
+        _lengths.push_back(fabs(rightBound - leftBound));
+
         double middle = (leftBound + rightBound) / 2;
         double leftPoint = middle, rightPoint = middle;
 

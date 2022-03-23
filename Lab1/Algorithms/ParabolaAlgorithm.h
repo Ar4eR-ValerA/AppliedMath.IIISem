@@ -31,6 +31,8 @@ public:
 
 private:
     double GetMin(const IFunc& func, double leftPoint, double innerPoint, double rightPoint, double eps) {
+        _lengths.push_back(fabs(rightPoint - leftPoint));
+
         if (innerPoint - leftPoint < eps) {
             return innerPoint;
         }
