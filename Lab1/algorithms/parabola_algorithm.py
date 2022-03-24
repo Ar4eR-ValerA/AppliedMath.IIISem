@@ -13,8 +13,10 @@ def find_min(function, left_bound, right_bound, eps):
 
         if left_result < middle_result:
             right_bound = middle
+            middle = (left_bound - right_bound) / 2
         elif right_result < middle_result:
             left_bound = middle
+            middle = (left_bound - right_bound) / 2
         else:
             break
 
