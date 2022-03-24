@@ -28,6 +28,6 @@ print(calls, len(segments), ans)
 print(segments, "\n")
 
 print("Brent algorithm:")
-ans, calls, segments = brent_algorithm.find_min(function, 3, 6, 1e-8)
+ans, calls, segments = brent_algorithm.find_min(function, 3, 6, 1e-6)
 print(calls, len(segments), ans)
 print(segments, "\n")

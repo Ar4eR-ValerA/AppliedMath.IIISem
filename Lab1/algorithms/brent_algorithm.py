@@ -26,9 +26,10 @@ def find_min(function, left_bound, right_bound, eps):
     left_result = right_result = middle_result
     prev_len = current_len = right_bound - left_bound
     segments = []
+    eps /= 10
     calls = 1
 
-    while fabs(right_bound - left_bound) >= 2 * eps:
+    while fabs(right_bound - left_bound) >= 10 * eps:
         segments.append([min(left_bound, right_bound), max(left_bound, right_bound)])
         prev_prev_len = prev_len
         prev_len = current_len
