@@ -2,6 +2,7 @@ from math import fabs, sqrt
 
 const = (3 - sqrt(5)) / 2
 
+
 def find_min(function, left_bound, right_bound, eps):
 
     def find_parabola_min(f, l, m, r):
@@ -25,7 +26,7 @@ def find_min(function, left_bound, right_bound, eps):
     middle_result = function(middle)
     left_result = right_result = middle_result
     prev_len = current_len = right_bound - left_bound
-    segments = []
+    segments = [(left_bound, right_bound)]
     inner_point = middle
     eps /= 10
     calls = 1
@@ -75,7 +76,7 @@ def find_min(function, left_bound, right_bound, eps):
 
             right_point, left_point, middle = left_point, middle, inner_point
             right_result, left_result, middle_result = left_result, middle_result, inner_result
-            segments.append([min(left_bound, right_bound), max(left_bound, right_bound)])
+            segments.append((min(left_bound, right_bound), max(left_bound, right_bound)))
 
         else:
             if inner_point >= middle:
@@ -86,10 +87,10 @@ def find_min(function, left_bound, right_bound, eps):
             if inner_result <= left_result or left_point == middle:
                 right_point, left_point = left_point, inner_point
                 right_result, left_result = left_result, inner_result
-                segments.append([min(left_bound, right_bound), max(left_bound, right_bound)])
+                segments.append((min(left_bound, right_bound), max(left_bound, right_bound)))
 
             elif inner_result <= right_result or right_point == middle:
                 right_point, right_result = inner_point, middle_result
-                segments.append([min(left_bound, right_bound), max(left_bound, right_bound)])
+                segments.append((min(left_bound, right_bound), max(left_bound, right_bound)))
 
     return (segments[-1][0] + segments[-1][1]) / 2, calls, segments
