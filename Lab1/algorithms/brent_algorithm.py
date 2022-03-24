@@ -39,19 +39,18 @@ def find_min(function, left_bound, right_bound, eps):
             parabola_min = find_parabola_min(function, left_bound, middle, right_bound)
             calls += 3
 
-        if (parabola_min is not None and fabs(parabola_min - left_bound) > eps and fabs(right_bound - parabola_min) > eps
+        if (parabola_min is not None and fabs(parabola_min - left_bound) > eps
+                and fabs(right_bound - parabola_min) > eps
                 and fabs(parabola_min - middle) < prev_prev_len / 2):
 
             current_len = fabs(inner_point - middle)
             if left_bound < parabola_min < inner_point:
                 right_bound = inner_point
                 inner_point = parabola_min
-                segments.append((inner_point, right_bound))
 
             elif inner_point < parabola_min < right_bound:
                 left_bound = inner_point
                 inner_point = parabola_min
-                segments.append((left_bound, inner_point))
 
         else:
             if middle <= (right_bound + left_bound) / 2:
@@ -62,36 +61,35 @@ def find_min(function, left_bound, right_bound, eps):
                 inner_point = middle + const * (left_bound - middle)
                 current_len = middle - left_bound
 
-            if fabs(inner_point - middle) < eps:
-                inner_point = middle + eps if inner_point - middle > 0 else middle - eps
+        if fabs(inner_point - middle) < eps:
+            inner_point = middle + eps if inner_point - middle > 0 else middle - eps
 
-            inner_result = function(inner_point)
-            calls += 1
+        inner_result = function(inner_point)
+        calls += 1
 
-            if inner_result <= middle_result:
-                if inner_point >= middle:
-                    left_bound = middle
-                else:
-                    right_bound = middle
+        if inner_result <= middle_result:
+            if inner_point >= middle:
+                left_bound = middle
+            else:
+                right_bound = middle
 
-                right_point, left_point, middle = left_point, middle, inner_point
-                right_result, left_result, middle_result = left_result, middle_result, inner_result
+            right_point, left_point, middle = left_point, middle, inner_point
+            right_result, left_result, middle_result = left_result, middle_result, inner_result
+            segments.append([min(left_bound, right_bound), max(left_bound, right_bound)])
+
+        else:
+            if inner_point >= middle:
+                right_bound = inner_point
+            else:
+                left_bound = inner_point
+
+            if inner_result <= left_result or left_point == middle:
+                right_point, left_point = left_point, inner_point
+                right_result, left_result = left_result, inner_result
                 segments.append([min(left_bound, right_bound), max(left_bound, right_bound)])
 
-            else:
-                if inner_point >= middle:
-                    right_bound = inner_point
-                else:
-                    left_bound = inner_point
+            elif inner_result <= right_result or right_point == middle:
+                right_point, right_result = inner_point, middle_result
+                segments.append([min(left_bound, right_bound), max(left_bound, right_bound)])
 
-                if inner_result <= left_result or left_point == middle:
-                    right_point, left_point = left_point, inner_point
-                    right_result, left_result = left_result, inner_result
-                    segments.append([min(left_bound, right_bound), max(left_bound, right_bound)])
-
-                elif inner_result <= right_result or right_point == middle:
-                    right_point, right_result = inner_point, middle_result
-                    segments.append([min(left_bound, right_bound), max(left_bound, right_bound)])
-
-    segments.append([min(left_bound, right_bound), max(left_bound, right_bound)])
     return (segments[-1][0] + segments[-1][1]) / 2, calls, segments
