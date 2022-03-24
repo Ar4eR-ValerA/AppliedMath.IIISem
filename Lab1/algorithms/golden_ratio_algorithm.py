@@ -8,6 +8,7 @@ def find_min(function, left_bound, right_bound, eps):
 
     left_point = right_bound - (right_bound - left_bound) / golden_ratio
     right_point = left_bound + (right_bound - left_bound) / golden_ratio
+    calls += 2
 
     left_result = function(left_point)
     right_result = function(right_point)
@@ -33,6 +34,7 @@ def find_min(function, left_bound, right_bound, eps):
             right_point = left_bound + (right_bound - left_bound) / golden_ratio
 
             right_result = function(right_point)
+            calls += 1
 
 
     segments.append((left_bound, right_bound))
