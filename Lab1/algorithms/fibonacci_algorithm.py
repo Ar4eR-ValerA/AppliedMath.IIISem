@@ -25,11 +25,10 @@ def find_min(function, left_bound, right_bound, eps):
     right_result = function(right_point)
     calls += 2
 
-    for i in range(iteration_number, 1, -1):
+    for _ in range(iteration_number, 1, -1):
         segments.append((min(left_bound, right_bound), max(left_bound, right_bound)))
 
         if abs(right_bound - left_bound) < eps:
-            segments.append((min(left_bound, right_bound), max(left_bound, right_bound)))
             return (segments[-1][0] + segments[-1][1]) / 2, calls, segments
 
         if left_result < right_result:
@@ -51,5 +50,4 @@ def find_min(function, left_bound, right_bound, eps):
             right_result = function(right_point)
             calls += 1
 
-    segments.append((min(left_bound, right_bound), max(left_bound, right_bound)))
     return (segments[-1][0] + segments[-1][1]) / 2, calls, segments
