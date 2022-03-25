@@ -7,14 +7,15 @@ def find_min(function, left_bound, right_bound, eps):
 
         middle = (left_bound + right_bound) / 2
 
-        left_result = function(middle - eps)
-        right_result = function(middle + eps)
+        delta = eps / 2 * 0.9
+        left_result = function(middle - delta)
+        right_result = function(middle + delta)
         calls += 2
 
         if left_result < right_result:
-            right_bound = middle
+            right_bound = middle + delta
         else:
-            left_bound = middle
+            left_bound = middle - delta
 
     segments.append((left_bound, right_bound))
     return (left_bound + right_bound) / 2, calls, segments
