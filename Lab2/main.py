@@ -1,7 +1,7 @@
 import inspect
 
 import algorithms.gradient as gd
-import abstarctions.gradient_params as gp
+import abstarctions.gradientparams as gp
 import algorithms.generate_plot as gen
 import numpy as np
 
@@ -19,5 +19,5 @@ def gradient(args):
 
 
 gen.visualize_fw()
-params = gp.gradient_params(dimensions=2)
+params = gp.GradientParams(dimensions=2)
 gd.gradient_descent(function, gradient, params)

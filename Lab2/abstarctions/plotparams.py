@@ -1,4 +1,4 @@
-class plot_params:
+class PlotParams:
     def __init__(self, min_x, min_y, max_x, max_y):
         self.min_x = min_x
         self.min_y = min_y
