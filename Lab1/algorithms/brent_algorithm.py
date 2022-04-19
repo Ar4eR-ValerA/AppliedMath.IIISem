@@ -4,7 +4,6 @@ const = (3 - sqrt(5)) / 2
 
 
 def find_min(function, left_bound, right_bound, eps):
-
     def find_parabola_min(l, m, r, left_res, middle_res, right_res):
         if l == m or m == r or l == r:
             return None

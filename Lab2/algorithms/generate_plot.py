@@ -10,7 +10,6 @@ def visualize_fw():
     pts = np.vstack((w1.flatten(), w2.flatten()))
     pts = pts.transpose()
 
-    print(pts * pts)
     f_vals = np.sum(pts * pts, axis=1)
     # function_plot(pts, f_vals)
     plt.title('Objective Function Shown in Color')
