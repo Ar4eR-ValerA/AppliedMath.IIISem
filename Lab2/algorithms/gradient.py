@@ -25,6 +25,6 @@ def gradient_descent(function, gradient, delta_function, params, init=0):
 
         x.append(curr_point)
         f.append(function(curr_point))
-        if abs(f[-1] - f[-2]) < params.eps:
+        if abs(f[-2] - f[-1]) < params.eps:
             break
     return x, f

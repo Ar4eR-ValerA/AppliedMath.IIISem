@@ -8,6 +8,7 @@ import numpy as np
 # algos for finding the minimum
 from Lab1.algorithms.brent_algorithm import find_min as brent
 from Lab1.algorithms.dichotomy_algorithm import find_min as dichotomy
+from Lab1.algorithms.golden_ratio_algorithm import find_min as golden_ratio
 
 
 # def function(args):
@@ -30,4 +31,4 @@ def function(args):
 
 gen.visualize_fw()
 params = gp.GradientParams(dimensions=2)
-gd.gradient_descent(function, gradient, dichotomy, params)
+gd.gradient_descent(function, gradient, golden_ratio, params)
