@@ -2,7 +2,7 @@ import numpy as np
 import algorithms.stepSizeAlgorithms as algos
 from algorithms.gradientDescent import gradient_descent
 from oracle.testOracles.oracle1 import Oracle1
-from algorithms.fletcherReevesAlgorithm.fletcherReeves import FletcherReeves
+from algorithms.fletcherReevesAlgorithm.fletcherReeves import fletcher_reeves
 
 
 o = Oracle1()
@@ -16,4 +16,5 @@ print(gradient_descent(o, np.array([-8, 4]), t1, 0.0001, max_iter=1000, max_alph
 print(gradient_descent(o, np.array([-8, 4]), t2, 0.0001, max_iter=1000, max_alpha=1, exit_clause="function")[0])
 print(gradient_descent(o, np.array([-5, 3]), t3, 0.0001, max_iter=1000, max_alpha=1, exit_clause="both")[0])
 print(gradient_descent(o, np.array([7, -13]), t4, 0.0001, max_iter=1000, max_alpha=1)[0])
-# print(FletcherReeves.execute(o, find_min, FletcherReeves.Params(np.array([0.5, 1]), 0.1, 0.15, 10)))
+
+print(fletcher_reeves(o, np.array([0.5, 1]), t3, 0.001, 0.015, 10, 0.5))

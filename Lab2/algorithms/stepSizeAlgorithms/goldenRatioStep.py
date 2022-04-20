@@ -9,5 +9,5 @@ class GoldenRatioStep(StepSizeFunction):
     def __init__(self):
         super().__init__()
 
-    def calc_step(self, function, left_bound, right_bound, eps, oracle: firstOrderOracle, curr_x):
+    def calc_step(self, function, left_bound, right_bound, eps, oracle: firstOrderOracle = 0, curr_x=0):
         return golden_ratio_algorithm.find_min(function, left_bound, right_bound, eps)[0]
