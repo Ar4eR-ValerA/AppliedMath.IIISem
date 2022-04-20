@@ -45,6 +45,8 @@ def gradient_descent(
 
         while step_size_func.split_step and curr_f >= prev_f:
             alpha /= 2
+            if alpha <= eps / 100:
+               return prev_x, steps
             alpha = step_size_func.calc_step(func, 0, alpha, eps, oracle, prev_x)
             curr_x = prev_x - alpha * grad
             curr_f = oracle.function(curr_x)
