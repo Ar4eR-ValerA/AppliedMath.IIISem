@@ -23,6 +23,7 @@ t4 = algos.FibonacciStep()
 
 #print(fletcher_reeves(o, np.array([0.5, 1]), t3, 0.00001, 0.00015, 10, 10)[0])
 #print(fletcher_reeves(o2, np.array([0, -2]), t3, 0.00001, 0.00015, 10, 10)[1])
-print(gradient_descent(o4, np.array([7, -13]), t4, 0.0001, max_iter=1000, max_alpha=1))
-print(fletcher_reeves(o4, np.array([-3, 4]), t3, 0.00001, 0.00015, 200, 100))
+
+print(gradient_descent(o4, np.array([-3, 4]), t4, 0.0001, max_iter=1000, max_alpha=10)[0])
+print(fletcher_reeves(o4, np.array([-3, 4]), t3, 0.00001, 0.00015, 1000, 100)[0])
 
