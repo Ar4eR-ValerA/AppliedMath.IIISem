@@ -4,7 +4,6 @@ from algorithms.stepSizeFunction import StepSizeFunction
 from oracle.firstOrderOracle import FirstOrderOracle
 
 
-# TODO: add momentum
 def gradient_descent(
         oracle: FirstOrderOracle,
         start_x: np.array,
