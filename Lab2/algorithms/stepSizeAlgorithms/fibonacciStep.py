@@ -1,5 +1,6 @@
 from algorithms.stepSizeFunction import StepSizeFunction
 import fibonacci_algorithm
+from oracle import firstOrderOracle
 
 
 class FibonacciStep(StepSizeFunction):
@@ -8,5 +9,5 @@ class FibonacciStep(StepSizeFunction):
     def __init__(self):
         super().__init__()
 
-    def calc_step(self, function, left_bound, right_bound, eps):
+    def calc_step(self, function, left_bound, right_bound, eps, oracle: firstOrderOracle, curr_x):
         return fibonacci_algorithm.find_min(function, left_bound, right_bound, eps)[0]
