@@ -8,10 +8,7 @@ def fletcher_reeves(
         oracle: FirstOrderOracle,
         start_point: np.array,
         step_size_func: StepSizeFunction,
-        eps1: float,
-        eps2: float,
-        max_iter: float,
-        max_step: float):
+        eps1, eps2, max_iter, max_step):
     points = [start_point]
     directions = []
     counter = 0
