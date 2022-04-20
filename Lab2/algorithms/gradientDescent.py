@@ -5,15 +5,14 @@ from oracle.firstOrderOracle import FirstOrderOracle
 
 
 # TODO: add momentum
-# TODO: change '==' to fabs()
 def gradient_descent(
         oracle: FirstOrderOracle,
         start_x: np.array,
         step_size_func: StepSizeFunction,
-        eps: float, max_iter=-1, default_alpha=1):
+        eps: float, max_iter=-1, max_alpha=0.5, refresh_each=100):
 
-    if default_alpha <= 0:
-        default_alpha = 1
+    if max_alpha <= 0:
+        max_alpha = 1
 
     steps = [start_x]
     iteration = 0
@@ -22,32 +21,38 @@ def gradient_descent(
     curr_x = start_x
     prev_f = oracle.function(start_x) + eps * 2
     curr_f = oracle.function(start_x)
+    alpha = max_alpha
 
-    # TODO: decompose exit clause to it's own class
-    while (iteration < max_iter or max_iter < 0)\
-            and math.dist(prev_x, curr_x) >= eps and math.fabs(curr_f - prev_f) >= eps:
+    while (iteration < max_iter or max_iter < 0) and check_exit_clause(prev_x, curr_x, prev_f, curr_f, eps):
         prev_x, prev_f = curr_x, curr_f
         grad = oracle.gradient(prev_x)
 
-        # if we reached extremum (maybe need to add check if extremum is min)
-        if np.all(grad == 0):
+        if np.all(np.abs(grad) <= eps / 100):
             break
 
         def func(a):
-            # TODO: check function
-            return oracle.function(prev_x - a * grad) + eps
+            return oracle.function(prev_x - a * grad)
 
-        # TODO: how to choose bounds to find min
-        alpha = step_size_func.calc_step(func, 0, 100, eps)
+        alpha = step_size_func.calc_step(func, 0, alpha, eps)
 
         # refresh
-        if alpha == 0:
-            alpha = default_alpha
+        if alpha <= eps / 100 or iteration == refresh_each:
+            alpha = max_alpha
 
         curr_x = prev_x - alpha * grad
         curr_f = oracle.function(curr_x)
-        steps.append(curr_x)
 
+        while step_size_func.split_step and curr_f >= prev_f:
+            alpha /= 2
+            alpha = step_size_func.calc_step(func, 0, alpha, eps)
+            curr_x = prev_x - alpha * grad
+            curr_f = oracle.function(curr_x)
+
+        steps.append(curr_x)
         iteration += 1
 
     return curr_x, steps
+
+
+def check_exit_clause(prev_x, curr_x, prev_f, curr_f, eps):
+    return math.dist(prev_x, curr_x) >= eps and math.fabs(curr_f - prev_f) >= eps

@@ -7,7 +7,6 @@ from algorithms.fletcherReevesAlgorithm.fletcherReeves import FletcherReeves
 
 o = Oracle1()
 t = ConstStep()
-t.set_step_size(0.2)
 
 #TODO: выпилить нахер, мне нужно было для тестирования, а lab1 подключать было долго <3
 def find_min(function, left_bound, right_bound, eps):
@@ -49,5 +48,5 @@ def find_min(function, left_bound, right_bound, eps):
     return (right_bound + left_bound) / 2, calls, segments
 
 
-print(gradient_descent(o, np.array([-2, 7]), t, 0.001, max_iter=100, default_alpha=0.2)[0])
-print(FletcherReeves.execute(o, find_min, FletcherReeves.Params(np.array([0.5, 1]), 0.1, 0.15, 10)))
+print(gradient_descent(o, np.array([-13, 13]), t, 0.0001, max_iter=1000, max_alpha=1)[0])
+# print(FletcherReeves.execute(o, find_min, FletcherReeves.Params(np.array([0.5, 1]), 0.1, 0.15, 10)))
