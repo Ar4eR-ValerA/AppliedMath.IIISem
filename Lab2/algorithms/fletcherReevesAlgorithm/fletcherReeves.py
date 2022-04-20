@@ -43,3 +43,5 @@ def fletcher_reeves(
             end_condition_counter = 0
 
         counter += 1
+
+    return points[counter], points
