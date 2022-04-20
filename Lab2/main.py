@@ -1,34 +1,20 @@
-import inspect
-
-import algorithms.gradient as gd
-import abstarctions.gradientparams as gp
-import algorithms.generate_plot as gen
 import numpy as np
-
-# algos for finding the minimum
-from Lab1.algorithms.brent_algorithm import find_min as brent
-from Lab1.algorithms.dichotomy_algorithm import find_min as dichotomy
-from Lab1.algorithms.golden_ratio_algorithm import find_min as golden_ratio
-
-
-# def function(args):
-#     x = args[0]
-#     y = args[1]
-#     return (x - 15) ** 2 + y ** 2
+import algorithms.stepSizeAlgorithms as algos
+from algorithms.gradientDescent import gradient_descent
+from oracle.testOracles.oracle1 import Oracle1
+from algorithms.fletcherReevesAlgorithm.fletcherReeves import fletcher_reeves
 
 
-def gradient(args):
-    x = args[0]
-    y = args[1]
-    return [2 * (x - 15), 2 * y]
+o = Oracle1()
+t1 = algos.ConstStep()
+t2 = algos.SplittingStep(0.3)
+t3 = algos.GoldenRatioStep()
+t4 = algos.FibonacciStep()
 
 
-def function(args):
-    x = args[0]
-    y = args[1]
-    return (x - 15) ** 2 + y ** 2 + 8
+print(gradient_descent(o, np.array([-8, 4]), t1, 0.0001, max_iter=1000, max_alpha=1, exit_clause="argument")[0])
+print(gradient_descent(o, np.array([-8, 4]), t2, 0.0001, max_iter=1000, max_alpha=1, exit_clause="function")[0])
+print(gradient_descent(o, np.array([-5, 3]), t3, 0.0001, max_iter=1000, max_alpha=1, exit_clause="both")[0])
+print(gradient_descent(o, np.array([7, -13]), t4, 0.0001, max_iter=1000, max_alpha=1)[0])
 
-
-gen.visualize_fw()
-params = gp.GradientParams(dimensions=2)
-gd.gradient_descent(function, gradient, golden_ratio, params)
+print(fletcher_reeves(o, np.array([0.5, 1]), t3, 0.00001, 0.00015, 10, 10)[0])
