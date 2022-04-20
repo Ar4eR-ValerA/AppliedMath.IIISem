@@ -1,4 +1,4 @@
-import firstOrderOracle
+from oracle import firstOrderOracle
 
 
 class StepSizeFunction:

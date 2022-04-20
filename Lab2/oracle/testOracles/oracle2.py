@@ -1,5 +1,5 @@
 import numpy as np
-from firstOrderOracle import FirstOrderOracle
+from oracle.firstOrderOracle import FirstOrderOracle
 
 
 class Oracle2(FirstOrderOracle):
