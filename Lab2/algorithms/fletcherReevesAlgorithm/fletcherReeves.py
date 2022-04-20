@@ -16,7 +16,6 @@ def fletcher_reeves(
     directions = []
     counter = 0
     end_condition_counter = 0
-    step_size = max_step
 
     while counter < max_iter:
         current_gradient_value = oracle.gradient(points[counter])
@@ -33,8 +32,7 @@ def fletcher_reeves(
         def func(t):
             return oracle.function(points[counter] + t * directions[counter])
 
-        #TODO: Тут есть что обсудить при встрече.
-        step_size = step_size_func.calc_step(func, 0, 100, 0.00001)
+        step_size = step_size_func.calc_step(func, 0, max_step, eps1)
         points.append(points[counter] + step_size * directions[counter])
 
         current_point_result = oracle.function(points[counter])
