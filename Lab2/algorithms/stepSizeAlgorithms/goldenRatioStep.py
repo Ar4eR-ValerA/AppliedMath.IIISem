@@ -1,6 +1,6 @@
-from algorithms.stepSizeFunction import StepSizeFunction
+from stepSizeFunction import StepSizeFunction
 import golden_ratio_algorithm
-from oracle import firstOrderOracle
+import firstOrderOracle
 
 
 class GoldenRatioStep(StepSizeFunction):

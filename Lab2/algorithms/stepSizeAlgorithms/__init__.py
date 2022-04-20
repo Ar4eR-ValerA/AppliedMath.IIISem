@@ -4,4 +4,4 @@ from fibonacciStep import FibonacciStep
 from goldenRatioStep import GoldenRatioStep
 from splittingStep import SplittingStep
 from constStep import ConstStep
-from oracle import firstOrderOracle
+import firstOrderOracle

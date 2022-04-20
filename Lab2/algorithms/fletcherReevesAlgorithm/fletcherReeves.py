@@ -1,7 +1,7 @@
 import math
 import numpy as np
-from algorithms.stepSizeFunction import StepSizeFunction
-from oracle.firstOrderOracle import FirstOrderOracle
+from stepSizeFunction import StepSizeFunction
+from firstOrderOracle import FirstOrderOracle
 
 
 def fletcher_reeves(

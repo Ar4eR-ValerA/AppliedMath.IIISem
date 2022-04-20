@@ -1,6 +1,6 @@
-from algorithms.stepSizeFunction import StepSizeFunction
+from stepSizeFunction import StepSizeFunction
 import fibonacci_algorithm
-from oracle import firstOrderOracle
+import firstOrderOracle
 
 
 class FibonacciStep(StepSizeFunction):

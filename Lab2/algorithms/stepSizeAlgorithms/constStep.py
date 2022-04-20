@@ -1,5 +1,5 @@
-from algorithms.stepSizeFunction import StepSizeFunction
-from oracle import firstOrderOracle
+from stepSizeFunction import StepSizeFunction
+import firstOrderOracle
 
 
 class ConstStep(StepSizeFunction):
