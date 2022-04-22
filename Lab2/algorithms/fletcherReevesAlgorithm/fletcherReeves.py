@@ -29,7 +29,7 @@ def fletcher_reeves(
         def func(t):
             return oracle.function(points[counter] + t * directions[counter])
 
-        step_size = step_size_func.calc_step(func, 0, max_step, eps1, oracle, 0)
+        step_size = step_size_func.calc_step(func, 0, max_step, eps1 / 1000, oracle, 0)
         points.append(points[counter] + step_size * directions[counter])
 
         current_point_result = oracle.function(points[counter])
