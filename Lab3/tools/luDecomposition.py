@@ -2,7 +2,6 @@ import numpy as np
 
 
 def lu_decomposition(a: np.array):
-
     n = len(a)
     u = np.array(a)
     list_l = []
@@ -30,4 +29,4 @@ def lu_decomposition(a: np.array):
             for j in range(k - 1, n):
                 u[i][j] = u[i][j] - l[i][k-1] * u[k - 1][j]
 
-    return u, l
+    return l, u
