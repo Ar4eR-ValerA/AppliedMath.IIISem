@@ -1,9 +1,9 @@
-import numpy as np
+from scipy import sparse
 from tools.luDecomposition import lu_decomposition
 from tools.inverseMatrix import inverse_matrix
 
 n = 5
-a = np.array([[10., -3., 5.], [-7., 6., -1.], [0., 2., 5.]])
+a = sparse.csr_matrix([[10., -3., 5.], [-7., 6., -1.], [0., 2., 5.]])
 
 l, u = lu_decomposition(a)
 inverse_a = inverse_matrix(a)

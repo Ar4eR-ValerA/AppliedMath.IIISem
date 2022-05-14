@@ -1,10 +1,10 @@
-import numpy as np
+from scipy import sparse
 from tools.luDecomposition import lu_decomposition
 from tools.linearEquationsSystemSolve import linear_equations_system_solve
 
 
-def inverse_matrix(a: np.array):
-    n = len(a)
+def inverse_matrix(a: sparse.csr_matrix):
+    n = a.shape[0]
     e = get_identity_matrix(n)
     l, u = lu_decomposition(a)
 
@@ -21,4 +21,4 @@ def get_identity_matrix(n: int):
         list[i] = 1
         matrix.append(list)
 
-    return np.array(matrix)
+    return sparse.csr_matrix(matrix)

@@ -1,9 +1,12 @@
 import numpy as np
+from scipy import sparse
 
 
-def lu_decomposition(a: np.array):
-    n = len(a)
-    u = np.array(a)
+def lu_decomposition(a: sparse.csr_matrix):
+    n = a.shape[0]
+    # TODO: Мне кажется, что переводить из CSR в обычную матрицу - это ПЛОХО!
+    # TODO: Нужно придумать, как приспособить три написанных алгоритма под CSR
+    u = a.toarray()
     list_l = []
 
     for i in range(0, n):
@@ -29,4 +32,4 @@ def lu_decomposition(a: np.array):
             for j in range(k - 1, n):
                 u[i][j] = u[i][j] - l[i][k-1] * u[k - 1][j]
 
-    return l, u
+    return sparse.csr_matrix(l), sparse.csr_matrix(u)
