@@ -5,7 +5,7 @@ from tools.inverseMatrix import inverse_matrix
 n = 5
 # TODO: У csr_matrix дорогое обращение по индексам, поэтому логичнее использоваться lil_matrix.
 # TODO: Lil_matrix немного менее эффективный по памяти, так что нужно обсудить, что в итоге использовать.
-a = sparse.lil_matrix([[10., -3., 5.], [-7., 6., -1.], [0., 2., 5.]])
+a = sparse.csr_matrix([[10., -3., 5.], [-7., 6., -1.], [0., 2., 5.]])
 
 l, u = lu_decomposition(a)
 inverse_a = inverse_matrix(a)

@@ -1,10 +1,10 @@
 from scipy import sparse
 
 
-def lu_decomposition(a: sparse.lil_matrix):
+def lu_decomposition(a: sparse.csr_matrix):
     n = a.shape[0]
 
-    u = a
+    u = sparse.lil_matrix(a)
     list_l = []
 
     for i in range(0, n):

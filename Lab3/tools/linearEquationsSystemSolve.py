@@ -2,7 +2,7 @@ from scipy import sparse
 from scipy.sparse import linalg
 
 
-def linear_equations_system_solve(a: sparse.lil_matrix, v: sparse.lil_matrix):
+def linear_equations_system_solve(a: sparse.csr_matrix, v: sparse.csr_matrix):
     x = []
     n = a.shape[0]
 

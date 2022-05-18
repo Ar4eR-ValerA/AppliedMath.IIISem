@@ -3,7 +3,7 @@ from tools.luDecomposition import lu_decomposition
 from tools.linearEquationsSystemSolve import linear_equations_system_solve
 
 
-def inverse_matrix(a: sparse.lil_matrix):
+def inverse_matrix(a: sparse.csr_matrix):
     n = a.shape[0]
     e = get_identity_matrix(n)
     l, u = lu_decomposition(a)
