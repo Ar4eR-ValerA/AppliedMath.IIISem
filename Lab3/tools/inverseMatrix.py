@@ -6,19 +6,19 @@ from tools.linearEquationsSystemSolve import linear_equations_system_solve
 def inverse_matrix(a: sparse.csr_matrix):
     n = a.shape[0]
     e = get_identity_matrix(n)
-    l, u = lu_decomposition(a)
+    l, u, iteration_count = lu_decomposition(a)
 
-    t = linear_equations_system_solve(l, e)
-    return linear_equations_system_solve(u, t)
+    t, new_iteration_count = linear_equations_system_solve(l, e, True)
+    iteration_count += new_iteration_count
+
+    inverse, new_iteration_count = linear_equations_system_solve(u, t, False)
+    iteration_count += new_iteration_count
+    return inverse, new_iteration_count
 
 
 def get_identity_matrix(n: int):
-    matrix = []
+    matrix = sparse.lil_matrix((n, n))
     for i in range(0, n):
-        list = []
-        for j in range(0, n):
-            list.append(0)
-        list[i] = 1
-        matrix.append(list)
+        matrix[i, i] = 1
 
-    return sparse.csr_matrix(matrix)
+    return matrix
