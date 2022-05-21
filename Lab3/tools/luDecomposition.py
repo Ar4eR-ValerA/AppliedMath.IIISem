@@ -5,6 +5,7 @@ import numpy as np
 def lu_decomposition(a: sparse.csr_matrix):
     n = a.shape[0]
     u = sparse.lil_matrix(a)
+
     l = sparse.lil_matrix(np.eye(n))
 
     iteration_counter = 0
@@ -12,8 +13,6 @@ def lu_decomposition(a: sparse.csr_matrix):
         for j in range(i, n):
             l[j, i] = u[j, i] / u[i, i]
             iteration_counter += 1
-
-    print(l.todense())
 
     for k in range(1, n):
         for i in range(k - 1, n):

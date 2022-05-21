@@ -10,7 +10,7 @@ def print_matrix(matrix):
     print(matrix.todense())
 
 
-a = sparse.csr_matrix([
+matrix_for_dauns = sparse.csr_matrix([
     [20., 0., 5., 4., 7.],
     [-7., 3., -1., 9., 9.],
     [10., 2., -4., 2, 2.],
@@ -18,7 +18,7 @@ a = sparse.csr_matrix([
     [7., 9., 6., 9., 5.]
 ])  # Valera kinda daun that isn't sparse matrix
 
-b = sparse.csr_matrix([
+a = sparse.csr_matrix([
     [1, 0, 0, 0, 0],
     [0, 2, 1, 0, 1],
     [0, 0, 9, 0, 0],
@@ -53,7 +53,7 @@ print("(Inverse A) * A:")
 print_matrix(inverse_a.dot(a))
 
 print("Iteration number")
-print_matrix(iteration_count_inversion)
+print(iteration_count_inversion)
 print(">-----------------------------------------<")
 
 b = sparse.csr_matrix([1., 2., 3., 4., 5.])
