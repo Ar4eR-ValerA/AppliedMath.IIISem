@@ -23,11 +23,11 @@ def are_equal(matrix_a, matrix_b, delta=0.01):
 class TestUM:
     def setup_class(cls):
         cls.a = sparse.csr_matrix([
-            [1, 0, 0, 0, 0],
-            [0, 2, 1, 0, 1],
-            [0, 0, 9, 0, 0],
-            [0, 0, 1, 3, 0],
-            [0, 7, 0, 3, 2],
+            [1., 0., 0., 0., 1.],
+            [0., 2., 1., 8., 1.],
+            [0., 0., 9., 0., 0.],
+            [0., 7., 1., 3., 0.],
+            [3., 7., 0., 3., 2.]
         ])
 
     def teardown_class(cls):
@@ -42,7 +42,3 @@ class TestUM:
     def test_lu_decomposition(self):
         l, u, _ = lu_decomposition(self.a)
         assert are_equal(l.dot(u), self.a)
-
-    def test_strings_b_2(self):
-        print("test b*2")
-        assert 'b' * 2 == 'bb'

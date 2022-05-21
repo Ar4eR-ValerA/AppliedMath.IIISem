@@ -3,27 +3,19 @@ from scipy import sparse
 from tools.luDecomposition import lu_decomposition
 from tools.inverseMatrix import inverse_matrix
 from tools.linearEquationsSystemSolve import linear_equations_system_solve
-from tools.seidel import seidel
+from tools.seidel import seidel, solution
 
 
 def print_matrix(matrix):
     print(matrix.todense())
 
 
-matrix_for_dauns = sparse.csr_matrix([
-    [20., 0., 5., 4., 7.],
-    [-7., 3., -1., 9., 9.],
-    [10., 2., -4., 2, 2.],
-    [2., 9., 11., 55., 5.],
-    [7., 9., 6., 9., 5.]
-])  # Valera kinda daun that isn't sparse matrix
-
 a = sparse.csr_matrix([
-    [1, 0, 0, 0, 0],
-    [0, 2, 1, 0, 1],
-    [0, 0, 9, 0, 0],
-    [0, 0, 1, 3, 0],
-    [0, 7, 0, 3, 2],
+    [1., 0., 0., 0., 1.],
+    [0., 2., 1., 8., 1.],
+    [0., 0., 9., 0., 0.],
+    [0., 7., 1., 3., 0.],
+    [3., 7., 0., 3., 2.]
 ])
 
 l, u, iteration_count_decomposition = lu_decomposition(a)
@@ -65,8 +57,16 @@ print("Iteration number")
 print(iteration_count)
 print(">-----------------------------------------<")
 
-b = np.array([1., 2., 3., 4., 5])
-answer, iteration_count = seidel(a, b, 0.000001)
+a = np.array([
+    [1., 0., 0., 0., 1.],
+    [0., 2., 1., 8., 1.],
+    [0., 0., 9., 0., 0.],
+    [0., 7., 1., 3., 0.],
+    [3., 7., 0., 3., 2.]
+])
+
+b = np.array([1., 2., 3., 4., 5.])
+answer = solution(a, b)
 print("Solution of system A with B vector [1, 2, 3, 4, 5] (Seidel method)")
 print(answer)
 print("Iteration number")
