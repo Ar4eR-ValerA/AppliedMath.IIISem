@@ -10,6 +10,43 @@ import pytest
 
 eps = 0.01
 
+def output(out_file, matrix):
+    for i in matrix.toarray():
+        print(*i, file=out_file)
+
+
+def decompose_matrix(matrix):  # returns L, D, U matrix from given
+    n = len(matrix)
+    L, D, U = np.zeros((n, n)), np.zeros((n, n)), np.zeros((n, n))
+    for i in range(n):
+        for j in range(n):
+            if i > j:
+                L[i, j] = matrix[i, j]
+            elif i < j:
+                U[i, j] = matrix[i, j]
+            else:
+                D[i, j] = matrix[i, j]
+    return L, D, U
+
+
+def check_siedel(matrix):
+    L, D, U = decompose_matrix(matrix)
+    inv_matrix = -(np.linalg.inv(L + D)) * U
+    val = np.linalg.norm(inv_matrix)
+    return np.linalg.norm(inv_matrix) < 1
+
+
+def generate_diagonal_matrix(k):
+    values = [0, -1, -2, -3, -4, -5, -6]
+    noise = 10 ** (-k)
+    matrix = np.zeros((k, k))
+    for i in range(k):
+        for j in range(k):
+            matrix[i][j] = random.choice(values)
+    for i in range(k):
+        matrix[i][i] = -(sum(matrix[i]) - matrix[i][i]) + noise
+    return matrix
+
 
 def are_equal(matrix_a, matrix_b, delta=eps):
     delta_matrix = matrix_a - matrix_b
@@ -51,6 +88,20 @@ class TestUM:
             self.a = fill_diagonal(generate_spread_matrix(8, pool), pool)
         self.a = sparse.csr_matrix(self.a)
 
+    def setup_method(self, test_matrix_generating):
+        # pool = list([1., 2., 9., 7.])
+        # self.a = np.zeros((8, 8), dtype=float)
+        # self.a = fill_diagonal(generate_spread_matrix(8, pool), pool)
+        # while not check_siedel(self.a):
+        #     self.a = fill_diagonal(generate_spread_matrix(8, pool), pool)
+        # self.a = sparse.csr_matrix(self.a)
+        self.a = generate_diagonal_matrix(8)
+        self.arr = np.array([i for i in range(1, 9)])
+        self.values = np.dot(self.a, self.arr)
+
+        self.a = sparse.csr_matrix(self.a)
+        self.out = open("out.txt", "w")
+
     def teardown_method(self, method):
         print("method teardown")
 
@@ -59,4 +110,8 @@ class TestUM:
         assert are_equal(l.dot(u), self.a)
 
     def test_matrix_generating(self):
+        x, _ = seidel(self.a, self.values, eps, self.out)
+
+        f = open("tmp.txt", "w")
+        output(f, self.a)
         assert True
