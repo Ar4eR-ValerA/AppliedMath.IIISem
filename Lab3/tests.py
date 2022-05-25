@@ -87,9 +87,6 @@ def fill_diagonal(matrix, pool: list):
 
 
 class TestUM:
-    def teardown_class(cls):
-        print("class teardown")
-
     def setup_method(self, test_lu_decomposition):
         matrix_size = 8
         pool = list([1, 2, 9, 7])
@@ -115,9 +112,6 @@ class TestUM:
 
         self.a = sparse.csr_matrix(self.a)
         self.out = open("out.txt", "w")
-
-    def teardown_method(self, method):
-        print("method teardown")
 
     def test_lu_decomposition(self):
         l, u, _ = lu_decomposition(self.a)
