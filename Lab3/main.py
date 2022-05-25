@@ -3,7 +3,7 @@ from scipy import sparse
 from tools.luDecomposition import lu_decomposition
 from tools.inverseMatrix import inverse_matrix
 from tools.linearEquationsSystemSolve import linear_equations_system_solve
-from tools.seidel import seidel, solution
+from tools.seidel import seidel
 
 
 def print_matrix(matrix):
@@ -66,7 +66,7 @@ a = np.array([
 ])
 
 b = np.array([1., 2., 3., 4., 5.])
-answer = solution(a, b)
+answer = seidel(a, b, 0.001)
 print("Solution of system A with B vector [1, 2, 3, 4, 5] (Seidel method)")
 print(answer)
 print("Iteration number")

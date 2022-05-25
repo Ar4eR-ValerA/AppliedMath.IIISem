@@ -9,7 +9,7 @@ def isNeedToComplete(x_old, x_new, eps):
     return True
 
 
-def seidel(A, B, eps, out):
+def seidel(A, B, eps):
     count = len(B)
     x = np.array([0.0] * count)
 

@@ -102,8 +102,7 @@ class TestUM:
         self.b = np.dot(self.a, self.arr)
 
         self.a = sparse.csr_matrix(self.a)
-        self.out = open("out.txt", "w")
-    
+
     def setup_method(self, test_gilbert_matrix):
         matrix_size = 8
         self.a = generate_gilbert_matrix(matrix_size)
@@ -111,23 +110,69 @@ class TestUM:
         self.b = np.dot(self.a, self.arr)
 
         self.a = sparse.csr_matrix(self.a)
-        self.out = open("out.txt", "w")
 
     def test_lu_decomposition(self):
         l, u, _ = lu_decomposition(self.a)
         assert are_equal(l.dot(u), self.a)
 
     def test_diagonal_matrix(self):
-        x, _ = seidel(self.a, self.b, eps, self.out)
+        a = self.a
+        b = self.b
 
-        f = open("tmp.txt", "w")
-        output(f, self.a)
+        x, count = seidel(a, b, eps)
+
+        print("\n>---------------------------<")
+        print("test_diagonal_matrix_seidel")
+        print("Operation amount:", count, sep="\n")
+        print("Answer vector", *x, sep="\n")
+        f = open("diagonal_for_seidel.txt", "w")
+        output(f, a)
+        f = open("diagonal_for_seidel_b.txt", "w")
+        output(f, sparse.csr_matrix(b.transpose()))
+        f = open("diagonal_for_seidel_test.txt", "w")
+        output(f, sparse.csr_matrix(a.dot(x)))
+
+        x, count = linear_equations_system_solve(a, sparse.csr_matrix(b))
+
+        print("\n>---------------------------<")
+        print("test_diagonal_matrix_lu")
+        print("Operation amount:", count, sep="\n")
+        print("Answer vector:", *x.transpose().toarray()[0], sep="\n")
+        f = open("diagonal_for_lu.txt", "w")
+        output(f, a)
+        f = open("diagonal_for_lu_b.txt", "w")
+        output(f, sparse.csr_matrix(b.transpose()))
+        f = open("diagonal_for_lu_test.txt", "w")
+        output(f, sparse.csr_matrix(a.dot(x)))
         assert True
 
     def test_gilbert_matrix(self):
-        x, _ = linear_equations_system_solve(self.a, sparse.csr_matrix(self.b))
+        a = self.a
+        b = self.b
 
-        print("", *x.transpose().toarray()[0], sep="\n")
-        f = open("tmp.txt", "w")
-        output(f, self.a)
+        x, count = seidel(a, b, eps)
+
+        print("\n>---------------------------<")
+        print("test_gilbert_matrix_seidel")
+        print("Operation amount:", count, sep="\n")
+        print("Answer vector", *x, sep="\n")
+        f = open("gilbert_for_seidel.txt", "w")
+        output(f, a)
+        f = open("gilbert_for_seidel_b.txt", "w")
+        output(f, sparse.csr_matrix(b.transpose()))
+        f = open("gilbert_for_seidel_test.txt", "w")
+        output(f, sparse.csr_matrix(a.dot(x)))
+
+        x, count = linear_equations_system_solve(a, sparse.csr_matrix(b))
+
+        print("\n>---------------------------<")
+        print("test_gilbert_matrix_lu")
+        print("Operation amount:", count, sep="\n")
+        print("Answer vector:", *x.transpose().toarray()[0], sep="\n")
+        f = open("gilbert_for_lu.txt", "w")
+        output(f, a)
+        f = open("gilbert_for_lu_b.txt", "w")
+        output(f, sparse.csr_matrix(b.transpose()))
+        f = open("gilbert_for_lu_test.txt", "w")
+        output(f, sparse.csr_matrix(a.dot(x)))
         assert True
