@@ -10,6 +10,7 @@ import pytest
 
 eps = 0.01
 
+
 def output(out_file, matrix):
     for i in matrix.toarray():
         print(*i, file=out_file)
@@ -48,6 +49,14 @@ def generate_diagonal_matrix(k):
     return matrix
 
 
+def generate_gilbert_matrix(k):
+    matrix = np.zeros((k, k))
+    for i in range(k):
+        for j in range(k):
+            matrix[i][j] = 1 / (i + j + 1)
+    return matrix
+
+
 def are_equal(matrix_a, matrix_b, delta=eps):
     delta_matrix = matrix_a - matrix_b
     for arr in delta_matrix.toarray():
@@ -82,22 +91,27 @@ class TestUM:
         print("class teardown")
 
     def setup_method(self, test_lu_decomposition):
+        matrix_size = 8
         pool = list([1, 2, 9, 7])
-        self.a = np.zeros((8, 8))
+        self.a = np.zeros((matrix_size, matrix_size))
         while abs(np.linalg.det(self.a)) < eps:
-            self.a = fill_diagonal(generate_spread_matrix(8, pool), pool)
+            self.a = fill_diagonal(generate_spread_matrix(matrix_size, pool), pool)
         self.a = sparse.csr_matrix(self.a)
 
-    def setup_method(self, test_matrix_generating):
-        # pool = list([1., 2., 9., 7.])
-        # self.a = np.zeros((8, 8), dtype=float)
-        # self.a = fill_diagonal(generate_spread_matrix(8, pool), pool)
-        # while not check_siedel(self.a):
-        #     self.a = fill_diagonal(generate_spread_matrix(8, pool), pool)
-        # self.a = sparse.csr_matrix(self.a)
-        self.a = generate_diagonal_matrix(8)
-        self.arr = np.array([i for i in range(1, 9)])
-        self.values = np.dot(self.a, self.arr)
+    def setup_method(self, test_diagonal_matrix):
+        matrix_size = 8
+        self.a = generate_diagonal_matrix(matrix_size)
+        self.arr = np.array([i for i in range(1, matrix_size + 1)])
+        self.b = np.dot(self.a, self.arr)
+
+        self.a = sparse.csr_matrix(self.a)
+        self.out = open("out.txt", "w")
+    
+    def setup_method(self, test_gilbert_matrix):
+        matrix_size = 8
+        self.a = generate_gilbert_matrix(matrix_size)
+        self.arr = np.array([i for i in range(1, matrix_size + 1)])
+        self.b = np.dot(self.a, self.arr)
 
         self.a = sparse.csr_matrix(self.a)
         self.out = open("out.txt", "w")
@@ -109,9 +123,17 @@ class TestUM:
         l, u, _ = lu_decomposition(self.a)
         assert are_equal(l.dot(u), self.a)
 
-    def test_matrix_generating(self):
-        x, _ = seidel(self.a, self.values, eps, self.out)
+    def test_diagonal_matrix(self):
+        x, _ = seidel(self.a, self.b, eps, self.out)
 
+        f = open("tmp.txt", "w")
+        output(f, self.a)
+        assert True
+
+    def test_gilbert_matrix(self):
+        x, _ = linear_equations_system_solve(self.a, sparse.csr_matrix(self.b))
+
+        print("", *x.transpose().toarray()[0], sep="\n")
         f = open("tmp.txt", "w")
         output(f, self.a)
         assert True
