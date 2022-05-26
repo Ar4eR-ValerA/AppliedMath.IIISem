@@ -1,7 +1,8 @@
 import numpy as np
 import copy
 
-def isNeedToComplete(x_old, x_new, eps):
+
+def is_need_to_complete(x_old, x_new, eps):
     for i in range(len(x_new)):
         if abs(x_old[i] - x_new[i]) > eps:
             return False
@@ -13,21 +14,21 @@ def seidel(A, B, eps):
     count = len(B)
     x = np.array([0.0] * count)
 
-    numberOfIter = 0
+    number_of_iter = 0
 
-    while 1:
+    while number_of_iter < 100000:
+
         x_prev = copy.deepcopy(x)
 
         for i in range(count):
-            S = 0
+            s = 0
             for j in range(count):
+                number_of_iter += 1
                 if j != i:
-                    S = S + A[i, j] * x[j]
-            x[i] = B[i] / A[i, i] - S / A[i, i]
+                    s = s + A[i, j] * x[j]
+            x[i] = B[i] / A[i, i] - s / A[i, i]
 
-        numberOfIter += 1
-
-        if isNeedToComplete(x_prev, x, eps):
+        if is_need_to_complete(x_prev, x, eps):
             break
 
-    return x, numberOfIter
+    return x, number_of_iter

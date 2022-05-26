@@ -52,23 +52,4 @@ b = sparse.csr_matrix([1., 2., 3., 4., 5.])
 answer, iteration_count = linear_equations_system_solve(a, b)
 print("Solution of system A with B vector [1, 2, 3, 4, 5] (lu method)")
 print(answer.transpose().toarray())
-
-print("Iteration number")
-print(iteration_count)
-print(">-----------------------------------------<")
-
-a = np.array([
-    [1., 0., 0., 0., 1.],
-    [0., 2., 1., 8., 1.],
-    [0., 0., 9., 0., 0.],
-    [0., 7., 1., 3., 0.],
-    [3., 7., 0., 3., 2.]
-])
-
-b = np.array([1., 2., 3., 4., 5.])
-answer = seidel(a, b, 0.001)
-print("Solution of system A with B vector [1, 2, 3, 4, 5] (Seidel method)")
-print(answer)
-print("Iteration number")
-print(iteration_count)
-print(">-----------------------------------------<")
+print(np.linalg.norm(np.subtract(b.toarray(), a.dot(answer.transpose().toarray()[0]))))
