@@ -8,7 +8,7 @@ def generate_gilbert_matrix(k):
         for j in range(k):
             matrix[i][j] = 1 / (i + j + 1)
 
-    return matrix
+    return np.array(matrix)
 
 def generate_diagonal_matrix(k):
     values = [0, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10]
@@ -21,7 +21,7 @@ def generate_diagonal_matrix(k):
     for i in range(k):
         matrix[i][i] = -(sum(matrix[i]) - matrix[i][i]) + noise
 
-    return matrix
+    return np.array(matrix)
 
 def generate_random_symmetric(k):
     matrix = np.zeros((k, k))
@@ -29,4 +29,4 @@ def generate_random_symmetric(k):
         for j in range(i, k):
             matrix[i][j] = matrix[j][i] = random.random() * random.randint(-100, 100)
 
-    return matrix
+    return np.array(matrix)
