@@ -27,6 +27,6 @@ def generate_random_symmetric(k):
     matrix = np.zeros((k, k))
     for i in range(k):
         for j in range(i, k):
-            matrix[i][j] = matrix[j][i] = random.random() * random.randint(-100, 100)
+            matrix[i][j] = matrix[j][i] = random.random() * random.randint(-5, 5)
 
     return np.array(matrix)
